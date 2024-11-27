@@ -1,0 +1,246 @@
+body {
+  font-family: sans-serif; 
+  margin: 0;
+  background-color: #F5F5F5;
+}
+
+/* Header và footer */
+header {
+  background-color: #814F41;
+  color: #fff;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left-content {
+  display: flex;
+  align-items: center; 
+
+}
+
+.left-content img {
+  margin-right: 20px; 
+}
+
+.right-content {
+  display: flex;
+  align-items: center;
+}
+
+.icons {
+  margin-right: 20px; 
+}
+
+.cart-icon, .user-icon{
+    font-size: 1.5em;
+    margin-right: 10px; 
+}
+
+.logo img {
+  max-width: 100px;
+}
+
+nav {
+  display: flex;
+  gap: 25px; 
+  margin-left: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-right: 10px; 
+  padding: 5px 10px;   
+
+
+}
+
+/* Phần biểu tượng ở bên phải */
+.header-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.header-icons img {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.contact-info {
+  text-align: center;
+  color: white;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Nội dung chính */
+main {
+  padding: 20px;
+}
+
+/* Section */
+section {
+  margin-bottom: 30px; /* Khoảng cách giữa các section */
+  border: 1px solid #ddd; 
+  padding: 20px;
+  border-radius: 5px; 
+  background-color: white; 
+}
+
+h2 {
+  color: #814F41;
+}
+
+/* Bảng */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2; 
+}
+
+img {
+  max-width: 100px; 
+  height: auto;
+}
+
+/* Form */
+form label {
+  display: block; 
+  margin-bottom: 5px;
+}
+
+form input, form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box; /* Bao gồm padding và border vào chiều rộng */
+}
+
+/* Nút */
+button {
+  background-color: #814F41;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #6F3F31; /* Màu khi hover chuột */
+}
+
+/* Nút sửa và xóa */
+.edit-btn, .delete-btn {
+  background-color: #FFC300; 
+  color: white;
+  margin-right: 5px; 
+}
+
+.delete-btn {
+  background-color: #FF5733;  
+}
+
+#uudai-hien-co {
+  padding-bottom: 20px; 
+}
+
+#add-new-offer {
+    margin-top: 20px;
+}
+
+.overlay {
+  width: 100%;
+  height: 100vh;
+  position: fixed; /* Giữ overlay cố định trên màn hình */
+  top: 0; /* Đặt overlay bắt đầu từ đầu trang */
+  left: 0; /* Đặt overlay sát bên trái trang */
+  background-color: rgba(0, 0, 0, 0.416); /* Màu nền mờ */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Đảm bảo overlay nằm trên các thành phần khác */
+}
+
+
+.edit-box {
+  width: 50%;
+  background-color: white;
+  padding: 10px;
+}
+
+.edit-form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+}
+
+.left_zone {
+  grid-column-start: 1;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+}
+
+.right_zone {
+  grid-column-start: 2;
+  display: flex; /* Kích hoạt Flexbox */
+  flex-direction: column; /* Sắp xếp các phần tử theo cột */
+  justify-content: center; /* Căn giữa theo chiều dọc */
+  align-items: center; /* Căn giữa theo chiều ngang */
+}
+
+.form_img {
+  max-width: 40%;
+}
+
+.right_zone button {
+  margin-bottom: 10px;
+}
+
+.right_zone input {
+  display: none;
+}
+
+.edit-form button {
+  grid-column-start: 1;
+  grid-column: span 2;
+}
+
+.exit-btn {
+  position: relative;
+  top: 0;
+  left: 470px;
+  max-width: 40px;
+  max-height: 40px;
+}
+
+.offer-edit-box {
+  width: 65%;
+  background-color: white;
+  padding: 10px;
+}
+
+.offer-edit-box .left_zone {
+  grid-column-start: 1;
+  grid-column: span 2;
+}
+
+.type-select {
+  margin: 5px 0px;
+  font-size: 16px;
+  padding: 5px;
+}

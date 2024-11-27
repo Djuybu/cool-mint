@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Cake</title>
+    <link rel="stylesheet" href="style.css">  </head>
+<body>
+    <header>
+        <div class="left-content">
+            <div class="logo">
+                <img src="images/logo.png" alt="Logo Website" width="100">
+            </div>
+            <nav>
+                <a href="#">Trang chủ</a>
+                <a href="sanpham.html">Sản phẩm</a>
+                <a href="uudai.html">Ưu đãi</a>
+                <a href="#">Thông tin</a>
+                <a href="#">Blog</a>
+                <a href="#">Liên hệ</a>
+            </nav>
+        </div>
+
+        <div class="right-content">
+            <div class="icons">
+                <img src="images/cart.png" alt="Giỏ hàng">
+                <img src="images/person.png" alt="Người dùng">
+            </div>
+            <div class="contact-info">
+                Liên hệ: 0987263935
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="uudai-hien-co">
+            <h2>Danh sách ưu đãi hiện tại</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên ưu đãi</th>
+                        <th>Mô tả</th>
+                        <th>Ngày bắt đầu</th>
+                        <th>Ngày kết thúc</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Khuyến mãi mùa hè</td>
+                        <td>Giảm giá 10% cho tất cả các sản phẩm</td>
+                        <td>01-06-2024</td>
+                        <td>10-06-2024</td>
+                        <td>
+                            <button class="edit-btn" data-id="1">+</button> 
+                            <button class="delete-btn" data-id="1">Xóa</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td>Khuyến mãi nhân dịp ngày Nhà giáo Việt Nam </td>
+                        <td>Mua 1 bánh kem tặng kèm một phần bánh biscotti/td>
+                        <td>19-11-2024</td>
+                        <td>20-11-2024</td>
+                        <td>
+                            <button class="edit-btn" data-id="1">+</button> 
+                            <button class="delete-btn" data-id="1">Xóa</button>
+                        </td>
+                    </tr>
+                    <!-- More offer rows here -->
+
+
+                </tbody>
+            </table>
+             <button id="add-new-offer">Thêm ưu đãi mới</button>
+            <div id="edit-form" style="display: none;"></div>
+
+
+        </section>
+    </main>
+
+
+    <script src="uudai.js"></script>  </body>
+</html>

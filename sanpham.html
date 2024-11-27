@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Cake</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+</head>
+<body>
+    <header>
+        <div class="left-content">
+            <div class="logo">
+                <img src="images/logo.png" alt="Logo Website" width="60">
+            </div>
+            <nav>
+                <a href="index.html">Trang chủ</a>
+                <a href="sanpham.html">Sản phẩm</a>
+                <a href="uudai.html">Ưu đãi</a>
+                <a href="#">Thông tin</a>
+                <a href="#">Blog</a>
+                <a href="#">Liên hệ</a>
+            </nav>
+        </div> 
+
+        <div class="right-content">
+            <div class="icons">
+                <img src="images/cart.png" alt="Giỏ hàng">
+                <img src="images/person.png" alt="Người dùng">
+            </div>
+            <div class="contact-info">
+                Liên hệ: 0987263935
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="products">
+            <h2>Danh sách sản phẩm hiện tại</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Hình ảnh</th>
+                        <th>Giá</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+            <button id="add-product">Thêm sản phẩm mới</button>
+            <div id="edit-form" style="display: none;"></div>
+        </section>
+        <section id="offers">
+            <h2>Danh sách ưu đãi hiện tại</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Giới thiệu ưu đãi</th>
+                        <th>Code</th>
+                        <th>Giá trị</th>
+                        <th>Hạn</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+            <button id="add-offer">Thêm ưu đãi mới</button>
+        </section>
+    </main>
+
+    <script src="./admin.js"></script> 
+</body>
+</html>
