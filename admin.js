@@ -28,6 +28,31 @@ const mock_data = {
   orders: [
     {
       id: 1,
+      time: "2024-11-28T07:45:20",
+      location: "Nhà 14, ngõ 22 Xuân Thuỷ",
+      price: "350000",
+      status: "Delivered",
+    },
+    {
+      id: 2,
+      time: "2024-11-28T10:15:30",
+      location: "Số 5, đường Láng Hạ",
+      price: "420000",
+      status: "In Delivery",
+    },
+    {
+      id: 3,
+      time: "2024-11-29T09:00:00",
+      location: "Căn hộ 1203, tòa nhà Times City",
+      price: "500000",
+      status: "Waiting for Payment",
+    },
+    {
+      id: 4,
+      time: "2024-11-30T18:20:10",
+      location: "Số 2, ngõ 68 Nguyễn Văn Cừ",
+      price: "600000",
+      status: "Cancelled",
     },
   ],
   offers: [
@@ -86,42 +111,81 @@ const addNewProduct = () => {
 };
 
 const addNewOffer = () => {
-    console.log("Hi");
-    const overlay = createOfferOverlay(undefined);
-    const submitButton = overlay.querySelector("button#submit-btn");
-    submitButton.innerText = "Thêm sản phẩm";
-    const index = mock_data.offers.length;
-    submitButton.addEventListener("click", (e) => {
-      e.preventDefault();
-      const newName = overlay.querySelector("input.name-input").value.trim();
-      const newCode = overlay.querySelector("input.code-input").value.trim();
-      const newType = overlay.querySelector("select.type-select").value;
-      const newValue = parseFloat(
-        overlay.querySelector("input.value-input").value.trim()
-      );
-      const newDue = overlay.querySelector("input.due-input").value.trim();
-      const newOffer = {
-          name: newName,
-          code: newCode,
-          type: newType,
-          value: newValue,
-          due: newDue
-      }
-      mock_data.offers.push(newOffer)
-      loadOfferToTable(newOffer, index)
-      deleteOverlay()
-    });
-    document.body.appendChild(overlay)
-  };
+  console.log("Hi");
+  const overlay = createOfferOverlay(undefined);
+  const submitButton = overlay.querySelector("button#submit-btn");
+  submitButton.innerText = "Thêm sản phẩm";
+  const index = mock_data.offers.length;
+  submitButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    const newName = overlay.querySelector("input.name-input").value.trim();
+    const newCode = overlay.querySelector("input.code-input").value.trim();
+    const newType = overlay.querySelector("select.type-select").value;
+    const newValue = parseFloat(
+      overlay.querySelector("input.value-input").value.trim()
+    );
+    const newDue = overlay.querySelector("input.due-input").value.trim();
+    const newOffer = {
+      name: newName,
+      code: newCode,
+      type: newType,
+      value: newValue,
+      due: newDue,
+    };
+    mock_data.offers.push(newOffer);
+    loadOfferToTable(newOffer, index);
+    deleteOverlay();
+  });
+  document.body.appendChild(overlay);
+};
+
+const addNewOrder = () => {
+  const overlay = createOrderOverlay(undefined);
+  const submitButton = overlay.querySelector("button#submit-btn");
+  submitButton.innerText = "Thêm đơn hàng";
+  const index = mock_data.orders.length;
+  
+  submitButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    const newOrderTime = overlay.querySelector("input.time-input").value.trim();
+      const newOrderLocation = overlay.querySelector("input.location-input").value.trim();
+      const newOrderPrice = parseFloat(overlay.querySelector("input.price-input").value.trim());
+      const newOrderStatus = overlay.querySelector("select.type-select").value;
+
+      console.log(newOrderTime, newOrderLocation, newOrderPrice, newOrderStatus);
+      
+
+      if (!newOrderTime) throw new Error("Thời gian không được để trống.");
+      if (!newOrderLocation) throw new Error("Địa chỉ không được để trống.");
+      if (isNaN(newOrderPrice) || newOrderPrice <= 0) throw new Error("Giá phải là số lớn hơn 0.");
+      if (!newOrderStatus) throw new Error("Trạng thái không được để trống.");
+
+      const order = {
+        id: "order_" + index,
+        time: newOrderTime,
+        location: newOrderLocation,
+        price: newOrderPrice,
+        status: newOrderStatus,
+      };
+
+      mock_data["orders"].push(order);
+      loadOrderToTable(order, index);
+      deleteOverlay();
+  });
+
+  document.body.appendChild(overlay);
+};
 
 const tableBody = document.querySelector("#products tbody");
 const offerTableBody = document.querySelector("#offers tbody");
 const newProductButton = document.getElementById("add-product");
 newProductButton.addEventListener("click", addNewProduct);
 
-const newOfferButton = document.getElementById("add-offer")
-newOfferButton.addEventListener("click", addNewOffer)
+const newOfferButton = document.getElementById("add-offer");
+newOfferButton.addEventListener("click", addNewOffer);
 
+const newOrderButton = document.getElementById("add-order");
+newOrderButton.addEventListener("click", addNewOrder)
 
 // Demo hoạt động lấy dữ liệu từ server của trang Web
 
@@ -142,6 +206,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // duyệt qua các sản phẩm
   offers.forEach((offer, index) => {
     loadOfferToTable(offer, index);
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const orders = mock_data["orders"];
+  orders.forEach((order, index) => {
+    loadOrderToTable(order, index);
   });
 });
 
@@ -260,6 +331,72 @@ const loadOfferToTable = (offer, index) => {
   offerTableBody.appendChild(newRow);
 };
 
+const loadOrderToTable = (order, index) => {
+  const tableBody = document.querySelector("#orders tbody");
+
+  const newRow = document.createElement("tr");
+  newRow.className = "table_row";
+  newRow.id = "order_" + index;
+
+  const idCell = document.createElement("td");
+  idCell.innerText = index + 1;
+  idCell.className = "order-id";
+
+  // Thời gian đặt hàng
+  const timeCell = document.createElement("td");
+  timeCell.className = "order-time";
+  timeCell.innerText = new Date(order["time"]).toLocaleString("vi-VN");
+
+  // Địa chỉ giao hàng
+  const locationCell = document.createElement("td");
+  locationCell.className = "order-location";
+  locationCell.innerText = order["location"];
+
+  // Giá đơn hàng
+  const priceCell = document.createElement("td");
+  priceCell.className = "order-price";
+  priceCell.innerText = format(Number(order["price"]));
+
+  // Trạng thái đơn hàng
+  const statusCell = document.createElement("td");
+  statusCell.className = "order-status";
+  statusCell.innerText = order["status"];
+
+  // Action panel
+  const actionCell = document.createElement("td");
+  actionCell.className = "order-actions";
+
+  const editButton = document.createElement("button");
+  editButton.className = "edit-btn";
+  editButton.innerText = "Sửa";
+  editButton.addEventListener("click", () => editOrder(order, index));
+
+  const deleteButton = document.createElement("button");
+  deleteButton.className = "delete-btn";
+  deleteButton.innerText = "Xoá";
+  deleteButton.addEventListener("click", () => deleteOrder(order["id"]));
+
+  actionCell.appendChild(editButton);
+  actionCell.appendChild(deleteButton);
+
+  newRow.appendChild(idCell);
+  newRow.appendChild(timeCell);
+  newRow.appendChild(locationCell);
+  newRow.appendChild(priceCell);
+  newRow.appendChild(statusCell);
+  newRow.appendChild(actionCell);
+
+  tableBody.appendChild(newRow);
+};
+
+
+
+
+const deleteOverlay = () => {
+  overlay = document.querySelector("div.overlay");
+  overlay.remove();
+};
+
 const editOffer = (offer, index) => {
   const overlay = createOfferOverlay(offer);
   const submitButton = overlay.querySelector("button#submit-btn");
@@ -311,7 +448,6 @@ const editOffer = (offer, index) => {
   });
   document.body.appendChild(overlay);
 };
-
 
 const createOfferOverlay = (offer) => {
   if (offer === undefined) {
@@ -429,6 +565,7 @@ const createOfferOverlay = (offer) => {
   overlay.appendChild(editBox);
   return overlay;
 };
+
 const editProduct = (product, index) => {
   const overlay = createProductOverlay(product);
   const submitButton = overlay.querySelector("button#submit-btn");
@@ -452,11 +589,6 @@ const editProduct = (product, index) => {
     deleteOverlay();
   });
   document.body.appendChild(overlay);
-};
-
-const deleteOverlay = () => {
-  overlay = document.querySelector("div.overlay");
-  overlay.remove();
 };
 
 const createProductOverlay = (product) => {
@@ -544,6 +676,134 @@ const createProductOverlay = (product) => {
   editBox.appendChild(editForm);
   overlay.appendChild(editBox);
   return overlay;
+};
+
+const createOrderOverlay = (order) => {
+  if (order === undefined) {
+    order = {
+      id: "",
+      time: "",
+      location: "",
+      price: "",
+      status: "",
+    };
+  }
+  const overlay = document.createElement("div");
+  overlay.className = "overlay";
+
+  const editBox = document.createElement("div");
+  editBox.className = "order-edit-box";
+  const editForm = document.createElement("form");
+  editForm.className = "order-edit-form";
+
+  const leftZone = document.createElement("div");
+  leftZone.className = "left_zone";
+
+  // Tạo các trường thông tin trong left_zone
+
+  const timeLabel = document.createElement("div");
+  timeLabel.innerText = "Thời gian đặt hàng";
+  const timeInput = document.createElement("input");
+  timeInput.value = order["time"];
+  timeInput.type = "datetime-local"; // Loại input đặc biệt cho thời gian
+  timeInput.className = "time-input";
+
+  const locationLabel = document.createElement("div");
+  locationLabel.innerText = "Địa chỉ";
+  const locationInput = document.createElement("input");
+  locationInput.value = order["location"];
+  locationInput.className = "location-input";
+
+  const priceLabel = document.createElement("div");
+  priceLabel.innerText = "Giá tiền";
+  const priceInput = document.createElement("input");
+  priceInput.value = order["price"];
+  priceInput.className = "price-input";
+
+  const statusLabel = document.createElement("div");
+  statusLabel.innerText = "Trạng thái";
+  const statusInput = document.createElement("select");
+  statusInput.className = "type-select";
+  ["Delivered", "In Progress", "Pending", "Cancelled"].forEach((status) => {
+    const option = document.createElement("option");
+    option.value = status;
+    option.innerText = status;
+    if (order["status"] === status) {
+      option.selected = true;
+    }
+    statusInput.appendChild(option);
+  });
+
+  const submitButton = document.createElement("button");
+  submitButton.id = "submit-btn";
+  submitButton.innerText = "Lưu";
+
+  const closeButton = document.createElement("i");
+  closeButton.className = "fi fi-br-cross exit-btn";
+  closeButton.addEventListener("click", () => {
+    deleteOverlay();
+  });
+
+  // Append tất cả các phần tử vào leftZone
+
+  leftZone.appendChild(timeLabel);
+  leftZone.appendChild(timeInput);
+
+  leftZone.appendChild(locationLabel);
+  leftZone.appendChild(locationInput);
+
+  leftZone.appendChild(priceLabel);
+  leftZone.appendChild(priceInput);
+
+  leftZone.appendChild(statusLabel);
+  leftZone.appendChild(statusInput);
+
+  // Add leftZone và submitButton vào form
+  editForm.appendChild(leftZone);
+  editForm.appendChild(submitButton);
+
+  // Add closeButton và editForm vào editBox
+  editBox.appendChild(closeButton);
+  editBox.appendChild(editForm);
+
+  // Add editBox vào overlay
+  overlay.appendChild(editBox);
+
+  return overlay;
+}
+
+const editOrder = (order, index) => {
+  const overlay = createOrderOverlay(order);
+  const submitButton = overlay.querySelector("button#submit-btn");
+  submitButton.innerText = "Cập nhật đơn hàng";
+  submitButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    try {
+      const newTime = overlay.querySelector("input.time-input").value.trim();
+      const newLocation = overlay.querySelector("input.location-input").value.trim();
+      const newPrice = parseFloat(overlay.querySelector("input.price-input").value.trim());
+      const newStatus = overlay.querySelector("select.status-select").value;
+
+      if (!newTime) throw new Error("Thời gian không được để trống.");
+      if (!newLocation) throw new Error("Địa chỉ không được để trống.");
+      if (isNaN(newPrice) || newPrice <= 0) throw new Error("Giá phải là số lớn hơn 0.");
+      if (!newStatus) throw new Error("Trạng thái không được để trống.");
+
+      const changeRow = document.getElementById("order_" + index);
+      const cells = Array.from(changeRow.querySelectorAll("td"));
+      cells[1].innerText = new Date(newTime).toLocaleString("vi-VN");
+      cells[2].innerText = newLocation;
+      cells[3].innerText = format(Number(newPrice));
+      cells[4].innerText = newStatus;
+
+      deleteOverlay();
+      console.log("Cập nhật đơn hàng thành công!");
+    } catch (error) {
+      console.error("Lỗi:", error.message);
+      alert(error.message);
+    }
+  });
+  document.body.appendChild(overlay);
 };
 
 const deleteProduct = (name) => {

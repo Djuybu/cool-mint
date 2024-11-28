@@ -234,6 +234,12 @@ button:hover {
   padding: 10px;
 }
 
+.order-edit-box {
+  width: 68%;
+  background-color: white;
+  padding: 10px;
+}
+
 .offer-edit-box .left_zone {
   grid-column-start: 1;
   grid-column: span 2;
@@ -243,4 +249,8 @@ button:hover {
   margin: 5px 0px;
   font-size: 16px;
   padding: 5px;
+}
+
+#submit-btn {
+  margin-top: 10px;
 }
